@@ -1,0 +1,274 @@
+/*
+ * Optimizers Design Tokens
+ *
+ * Provenance tags used throughout this file (defined in full in BRAND_IDENTITY.md header):
+ *   [FACT p.N]   verbatim/near-verbatim PDF source, page N
+ *   [INFERRED]   reasonable extrapolation from adjacent PDF context, not a direct statement
+ *   [UNVERIFIED] could not be confirmed (no PDF page-image rendering possible in this environment)
+ *   [DEFAULT]    an authoring choice made for practical necessity — NOT brand law, freely adjustable
+ *
+ * This file defines values only (custom properties + @font-face). No selectors, no components —
+ * see components.css for buttons/inputs/cards/badges. tokens.json is a values-only mirror of this
+ * file for non-CSS consumers; if the two ever disagree, that's a bug (this file is authored first).
+ */
+
+:root {
+  /* ---------------------------------------------------------------------
+   * COLOR — brand palette [FACT p.14]
+   * ------------------------------------------------------------------- */
+  --op-color-pastel-green: #6ae499;   /* Primary accent */
+  --op-color-big-stone: #162a3d;      /* Secondary dark ("Light black") */
+  --op-color-black-forest: #020601;   /* Primary dark ("Dark black") */
+
+  /* Note: shipped logo asset files use #020202 as their black, not the nominal
+     #020601 Black Forest — a documented, intentional discrepancy (see
+     assets/manifest.json sourceOfTruthNote and BRAND_IDENTITY.md §4). Both
+     values are "correct" in their own context; do not "fix" one to match the
+     other. */
+
+  /* SEMANTIC ALIASES — derived from per-color usage notes [FACT p.14] */
+  --op-text-headline: var(--op-color-black-forest);  /* "main headlines" */
+  --op-text-body: var(--op-color-big-stone);         /* "paragraphs" */
+  --op-text-on-green: var(--op-color-black-forest);  /* required text color on Pastel Green bg — not optional */
+
+  --op-surface-light: #ffffff;                 /* [DEFAULT] — PDF never states a literal "white" hex */
+  --op-surface-dark: var(--op-color-black-forest);
+  --op-surface-accent: var(--op-color-pastel-green);
+
+  /* ---------------------------------------------------------------------
+   * TYPOGRAPHY
+   * ------------------------------------------------------------------- */
+  --op-font-en: 'Sora', sans-serif;       /* [FACT p.10] */
+  --op-font-ar: 'KO Sans', sans-serif;    /* [FACT p.11] */
+
+  /* Type scale — concrete px chosen to satisfy the *relative* hierarchy rules
+     [FACT p.12], since the PDF gives no fixed pixel values except the
+     paragraph ceiling. Treat every size below as [DEFAULT] unless noted. */
+  --op-font-size-headline: 56px;     /* [DEFAULT] — FACT says only "large, according to artboard dimensions" */
+  --op-font-size-subhead-1: 28px;    /* [FACT-derived] — FACT: "half size of the main headline font" (56/2) */
+  --op-font-size-subhead-2: 20px;    /* [DEFAULT] — FACT only says "less [size] than sub-headline 1", exact ratio not given */
+  --op-font-size-paragraph: 18px;    /* [FACT p.12]: "24px or below" — 18px chosen as the [DEFAULT] concrete value */
+
+  --op-font-weight-headline: 700;      /* Bold [FACT p.12] */
+  --op-font-weight-subhead: 600;       /* SemiBold [FACT p.12] */
+  --op-font-weight-paragraph: 300;     /* Light [FACT p.12] */
+
+  /* ---------------------------------------------------------------------
+   * STRUCTURE — [DEFAULT] throughout. Not specified anywhere in the brand
+   * guidelines (confirmed absent via full-text sweep) — freely adjustable
+   * per project, not brand law.
+   * ------------------------------------------------------------------- */
+  --op-radius-sm: 6px;
+  --op-radius-md: 12px;
+  --op-radius-pill: 999px;
+
+  --op-space-1: 4px;
+  --op-space-2: 8px;
+  --op-space-3: 12px;
+  --op-space-4: 16px;
+  --op-space-5: 24px;
+  --op-space-6: 32px;
+  --op-space-7: 48px;
+  --op-space-8: 64px;
+
+  /* ---------------------------------------------------------------------
+   * GRID & SPACING SYSTEM — [DEFAULT] throughout. Not specified anywhere in
+   * the brand guidelines (confirmed absent via full-text sweep). Reuses the
+   * --op-space-* scale above rather than inventing a parallel one. See
+   * design-system/layout.css for the .op-container / .op-grid utilities and
+   * BRAND_IDENTITY.md's Grid & Spacing System section for rationale.
+   * ------------------------------------------------------------------- */
+  --op-breakpoint-sm: 640px;
+  --op-breakpoint-md: 768px;
+  --op-breakpoint-lg: 1024px;
+  --op-breakpoint-xl: 1280px;
+  --op-container-max-width: 1200px;
+  --op-grid-columns: 12;
+  --op-grid-gutter: var(--op-space-5); /* 24px */
+
+  /* ---------------------------------------------------------------------
+   * BUTTONS — base colors [FACT p.21], hover colors [UNVERIFIED]/[DEFAULT]
+   * ------------------------------------------------------------------- */
+  --op-btn-primary-bg: var(--op-color-pastel-green);      /* [FACT p.21] */
+  --op-btn-primary-text: var(--op-color-black-forest);    /* [FACT p.21] */
+  /* Hover color below is NOT stated in extractable PDF text and could not be
+     visually verified (no PDF page-image rendering available in this
+     environment). It's a plausible, clearly-[DEFAULT] darker-green shade —
+     treat as an authoring placeholder, not confirmed brand spec. */
+  --op-btn-primary-hover-bg: #58cf87;                     /* [UNVERIFIED]/[DEFAULT] */
+
+  --op-btn-secondary-dark-border: #ffffff;                /* [FACT p.21]: white outline on dark bg */
+  --op-btn-secondary-dark-text: #ffffff;
+  --op-btn-secondary-light-border: var(--op-color-black-forest); /* [FACT p.21]: black outline on white bg */
+  --op-btn-secondary-light-text: var(--op-color-black-forest);
+  /* Both secondary variants' hover fill is documented in prior notes as "light
+     green fill" but is likewise [UNVERIFIED] against the PDF text layer. */
+  --op-btn-secondary-hover-bg: #e4f9ec;                   /* [UNVERIFIED]/[DEFAULT] */
+
+  /* Ghost — NOT OFFICIALLY SPECIFIED, but on-brand: no new colors, just the
+     existing text colors with no fill/border. Hover uses a low-opacity tint
+     of the same text color rather than a fixed hex, so it works correctly
+     against either dark or light context automatically. */
+  --op-btn-ghost-hover-opacity: 0.08; /* [DEFAULT] */
+
+  /* ---------------------------------------------------------------------
+   * NON-BRAND UTILITY — extrapolated-component support only. Never present
+   * these as Optimizers brand colors; the source guidelines define no
+   * semantic (success/error/warning) colors at all [GAP].
+   * ------------------------------------------------------------------- */
+  --op-utility-error: #d64545;   /* generic UI necessity for input error states — NOT a brand color */
+
+  /* Danger button — reuses --op-utility-error for the same reason: a generic
+     UI necessity for destructive actions (delete/remove), NOT a 4th approved
+     brand color. Same non-brand footing as the input error state above. */
+  --op-btn-danger-bg: var(--op-utility-error);            /* NOT a brand color */
+  --op-btn-danger-text: #ffffff;
+  --op-btn-danger-hover-bg: #b93838;                      /* [DEFAULT] darker shade of the same non-brand red */
+
+  /* ---------------------------------------------------------------------
+   * PATTERN — see design-system/pattern/op-pattern-tile.svg. Opacity is
+   * tunable rather than baked into the SVG, since the PDF only specifies
+   * "opacity to match the background color" [FACT p.20] with no number.
+   * ------------------------------------------------------------------- */
+  --op-pattern-opacity: 0.12;  /* [DEFAULT] */
+  /* CAVEAT (verified in-browser): mix-blend-mode: overlay against a base this
+     close to pure black is mathematically near-invisible (overlay's dark-tone
+     response is 2*base*blend; Black Forest's ~0 luminance collapses that to
+     ~0 at any opacity). The tile itself renders/tiles correctly — confirmed
+     visible on a Pastel Green (multiply) surface. See BRAND_IDENTITY.md §8
+     before assuming the pattern is broken on a literal Black Forest bg. */
+
+  /* PRE-COMPOSITED PATTERN BACKGROUNDS — see design-system/pattern/backgrounds/
+     and the inline <svg> pattern demos in preview.html. [DEFAULT], tuned
+     empirically for legibility (no PDF measurement exists for this treatment).
+     These two tokens drive preview.html's LIVE inline pattern instantly on
+     reload — edit + refresh, no rebuild step. They do NOT reach into the
+     standalone pattern-bg-*.svg/.png files in design-system/pattern/backgrounds/
+     (external SVG/raster files can't consume a linking page's CSS variables) —
+     those are a manually-synced baked snapshot of these values, regenerated
+     on request, not automatically. If you change these tokens and want the
+     portable files to match, ask for a regeneration explicitly; otherwise
+     expect them to drift, by design, not as a bug. */
+  --op-pattern-bg-stroke-width: 10px;    /* [DEFAULT] */
+  --op-pattern-bg-stroke-opacity: 1;    /* [DEFAULT] */
+}
+
+/* -------------------------------------------------------------------------
+ * A note on the logo's "never apply a drop shadow" rule [FACT p.8]: it
+ * applies to the OP logo mark itself, not to UI components generally. Do not
+ * read these tokens as forbidding shadows on cards/buttons/etc. — that
+ * constraint is scoped to the logo files only.
+ * ---------------------------------------------------------------------- */
+
+/* ===========================================================================
+ * @font-face — Sora (8 weights)
+ * ======================================================================= */
+@font-face {
+  font-family: 'Sora';
+  src: url('../fonts/Sora/Sora-Thin.ttf') format('truetype');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Sora';
+  src: url('../fonts/Sora/Sora-ExtraLight.ttf') format('truetype');
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Sora';
+  src: url('../fonts/Sora/Sora-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Sora';
+  src: url('../fonts/Sora/Sora-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Sora';
+  src: url('../fonts/Sora/Sora-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Sora';
+  src: url('../fonts/Sora/Sora-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Sora';
+  src: url('../fonts/Sora/Sora-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Sora';
+  src: url('../fonts/Sora/Sora-ExtraBold.ttf') format('truetype');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ===========================================================================
+ * @font-face — KO Sans Arabic (7 weights — tops out at Bold, no ExtraBold)
+ * ======================================================================= */
+@font-face {
+  font-family: 'KO Sans';
+  src: url('../fonts/KO-Sans-Arabic/KOSans-Thin.otf') format('opentype');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'KO Sans';
+  src: url('../fonts/KO-Sans-Arabic/KOSans-ExtraLight.otf') format('opentype');
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'KO Sans';
+  src: url('../fonts/KO-Sans-Arabic/KOSans-Light.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'KO Sans';
+  src: url('../fonts/KO-Sans-Arabic/KOSans-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'KO Sans';
+  src: url('../fonts/KO-Sans-Arabic/KOSans-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'KO Sans';
+  src: url('../fonts/KO-Sans-Arabic/KOSans-SemiBold.otf') format('opentype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'KO Sans';
+  src: url('../fonts/KO-Sans-Arabic/KOSans-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}

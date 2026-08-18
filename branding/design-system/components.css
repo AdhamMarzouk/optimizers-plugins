@@ -1,0 +1,207 @@
+/*
+ * Optimizers Component Styles
+ *
+ * Requires tokens.css to be loaded first (this file only references custom
+ * properties, it defines none). Provenance tags per component block:
+ *   SPEC'D (PDF p.N)              — directly defined by the brand guidelines
+ *   NOT OFFICIALLY SPECIFIED       — extrapolated to match the brand for
+ *                                    practical usability; get design sign-off
+ *                                    before treating as brand law in
+ *                                    client-facing work
+ */
+
+/* ===========================================================================
+ * BUTTONS — SPEC'D (PDF p.21)
+ * Primary: "main actions... rounded corner and green color... with black text"
+ * Secondary: "less priority actions with white outline with dark background
+ *             and black outline with the white background"
+ * Hover colors are [UNVERIFIED] — see tokens.css --op-btn-*-hover-bg comments.
+ * ======================================================================= */
+.op-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--op-space-2);
+  font-family: var(--op-font-en);
+  font-weight: var(--op-font-weight-subhead);
+  font-size: var(--op-font-size-subhead-2);
+  padding: var(--op-space-3) var(--op-space-5);
+  border-radius: var(--op-radius-pill); /* [DEFAULT] — PDF says "rounded corner", no exact radius given */
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease;
+}
+
+.op-btn--primary {
+  background-color: var(--op-btn-primary-bg);
+  color: var(--op-btn-primary-text);
+}
+.op-btn--primary:hover {
+  background-color: var(--op-btn-primary-hover-bg); /* [UNVERIFIED]/[DEFAULT] */
+}
+
+.op-btn--secondary-dark {
+  /* for use on dark (Black Forest) backgrounds */
+  background-color: transparent;
+  color: var(--op-btn-secondary-dark-text);
+  border-color: var(--op-btn-secondary-dark-border);
+}
+.op-btn--secondary-dark:hover {
+  background-color: var(--op-btn-secondary-hover-bg); /* [UNVERIFIED]/[DEFAULT] */
+  color: var(--op-color-black-forest);
+}
+
+.op-btn--secondary-light {
+  /* for use on white backgrounds */
+  background-color: transparent;
+  color: var(--op-btn-secondary-light-text);
+  border-color: var(--op-btn-secondary-light-border);
+}
+.op-btn--secondary-light:hover {
+  background-color: var(--op-btn-secondary-hover-bg); /* [UNVERIFIED]/[DEFAULT] */
+}
+
+/* ---------------------------------------------------------------------------
+ * Ghost — NOT OFFICIALLY SPECIFIED, but on-brand (no new colors). Lowest-
+ * emphasis action: no fill, no border, colored text only. For usage guidance
+ * on when to reach for Ghost vs. Secondary (e.g. Cancel/Dismiss/Not now), see
+ * design-system/COMPONENTS.md's button semantic mapping table.
+ * ------------------------------------------------------------------------- */
+.op-btn--ghost-dark {
+  /* for use on dark (Black Forest) backgrounds */
+  background-color: transparent;
+  color: #ffffff;
+}
+.op-btn--ghost-dark:hover {
+  background-color: rgba(255, 255, 255, var(--op-btn-ghost-hover-opacity));
+}
+
+.op-btn--ghost-light {
+  /* for use on white backgrounds */
+  background-color: transparent;
+  color: var(--op-color-black-forest);
+}
+.op-btn--ghost-light:hover {
+  background-color: rgba(2, 6, 1, var(--op-btn-ghost-hover-opacity));
+}
+
+/* ---------------------------------------------------------------------------
+ * Danger — NOT OFFICIALLY SPECIFIED, and explicitly NON-BRAND: reuses
+ * --op-utility-error, the same generic red already used for input error
+ * states, NOT a 4th approved brand color. Reserve for destructive actions
+ * only (Delete/Remove) — see COMPONENTS.md's semantic mapping table.
+ * ------------------------------------------------------------------------- */
+.op-btn--danger {
+  background-color: var(--op-btn-danger-bg);
+  color: var(--op-btn-danger-text);
+}
+.op-btn--danger:hover {
+  background-color: var(--op-btn-danger-hover-bg); /* [DEFAULT] */
+}
+
+/* ===========================================================================
+ * INPUTS — NOT OFFICIALLY SPECIFIED
+ * No input/form guidance exists anywhere in the source guidelines [GAP].
+ * Styled to fit the palette and iconography's rounded-corner language.
+ * ======================================================================= */
+.op-input {
+  display: block;
+  width: 100%;
+  font-family: var(--op-font-en);
+  font-weight: var(--op-font-weight-paragraph);
+  font-size: var(--op-font-size-paragraph);
+  color: var(--op-text-body);
+  background-color: var(--op-surface-light);
+  border: 1px solid #c7ccd1; /* [DEFAULT] neutral border, not a brand color */
+  border-radius: var(--op-radius-sm);
+  padding: var(--op-space-3) var(--op-space-4);
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+}
+.op-input:focus {
+  outline: none;
+  border-color: var(--op-color-pastel-green);
+  box-shadow: 0 0 0 3px rgba(106, 228, 153, 0.25); /* [DEFAULT] accent-tinted focus ring */
+}
+.op-input:disabled {
+  background-color: #f2f3f4; /* [DEFAULT] */
+  color: #9aa1a8;            /* [DEFAULT] */
+  cursor: not-allowed;
+}
+.op-input--error {
+  border-color: var(--op-utility-error); /* NOT a brand color — generic UI necessity */
+}
+
+textarea.op-input {
+  min-height: 96px; /* [DEFAULT] */
+  resize: vertical;
+  font-family: inherit;
+}
+
+/* Checkbox — NOT OFFICIALLY SPECIFIED. Native checkbox with brand accent
+   color via the standard accent-color property, rather than hand-built SVG
+   checkbox artwork — simplest correct way to get an on-brand checkbox. */
+.op-checkbox {
+  accent-color: var(--op-color-pastel-green);
+  width: 16px;
+  height: 16px;
+}
+
+/* ===========================================================================
+ * CARDS — NOT OFFICIALLY SPECIFIED
+ * No card guidance exists in the source guidelines [GAP]. Grounded in the
+ * approved background pairings [FACT p.6, p.14] — the light/dark/green
+ * surface variants below are not arbitrary, but the "card" concept itself is.
+ * ======================================================================= */
+.op-card {
+  border-radius: var(--op-radius-md); /* [DEFAULT] */
+  padding: var(--op-space-6);
+}
+.op-card--light {
+  background-color: var(--op-surface-light);
+  color: var(--op-text-body);
+}
+.op-card--dark {
+  background-color: var(--op-surface-dark);
+  color: #ffffff;
+}
+.op-card--accent {
+  background-color: var(--op-surface-accent);
+  color: var(--op-text-on-green); /* required per [FACT p.14] — text on green must be Black Forest */
+}
+
+/* ===========================================================================
+ * BADGES — NOT OFFICIALLY SPECIFIED as a component, but reuses the one real
+ * [FACT p.14] color pairing (Pastel Green bg + required Black Forest text).
+ * ======================================================================= */
+.op-badge {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--op-font-en);
+  font-weight: var(--op-font-weight-subhead);
+  font-size: 13px; /* [DEFAULT] */
+  line-height: 1;
+  padding: var(--op-space-1) var(--op-space-3);
+  border-radius: var(--op-radius-pill); /* [DEFAULT] */
+  background-color: var(--op-color-pastel-green);
+  color: var(--op-text-on-green);
+}
+
+/* ===========================================================================
+ * PATTERN UTILITIES — blend-mode mapping [FACT p.20]
+ * CAVEAT: .op-pattern--overlay against Black Forest is near-invisible by CSS
+ * blend-mode math (verified) — see BRAND_IDENTITY.md §8 and the comment on
+ * --op-pattern-opacity in tokens.css. For a guaranteed-correct result with no
+ * blend-mode dependency, use the pre-composited backgrounds instead:
+ * design-system/pattern/backgrounds/pattern-bg-{blackforest,pastelgreen,white}.svg
+ * ======================================================================= */
+.op-pattern {
+  background-image: url('pattern/op-pattern-tile.svg');
+  background-repeat: repeat;
+  opacity: var(--op-pattern-opacity);
+}
+.op-pattern--overlay {
+  mix-blend-mode: overlay; /* use on dark / Black Forest backgrounds [FACT p.20] */
+}
+.op-pattern--multiply {
+  mix-blend-mode: multiply; /* use on Pastel Green backgrounds [FACT p.20] */
+}

@@ -1,0 +1,11 @@
+{
+  "name": "Optimizers",
+  "short_name": "Optimizers",
+  "icons": [
+    { "src": "/design-system/favicon/android-chrome-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/design-system/favicon/android-chrome-512.png", "sizes": "512x512", "type": "image/png" }
+  ],
+  "theme_color": "#020601",
+  "background_color": "#020601",
+  "display": "standalone"
+}

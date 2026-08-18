@@ -1,0 +1,551 @@
+{
+  "schemaVersion": "1.0.0",
+  "brand": "Optimizers",
+  "lastUpdated": "2026-08-17",
+  "sourceOfTruthNote": "hex values in this file are the literal color baked into each asset file, verified by inspection. This can legitimately differ slightly from the nominal brand hex documented in BRAND_IDENTITY.md / design-system/tokens.css (e.g. black assets use #020202, not the nominal Black Forest #020601) — that discrepancy is expected and documented, not a bug. For canonical brand colors and usage rules, see BRAND_IDENTITY.md and design-system/tokens.css / tokens.json — this file is the asset index, not the color source of truth.",
+  "assets": [
+    {
+      "id": "icon-black-png",
+      "path": "assets/png/icon-black.png",
+      "markType": "icon",
+      "format": "png",
+      "colorVariant": "black",
+      "hex": "#020202",
+      "hierarchyTier": "primary",
+      "intendedBackgrounds": ["white", "pastelgreen"],
+      "transparency": true,
+      "pixelDimensions": "2000x2000",
+      "viewBox": null,
+      "whenToUse": "Default icon-only 'OP' mark for light backgrounds (white or Pastel Green). Use when a raster file is required; prefer icon-black.svg when a scalable vector works.",
+      "integrityNotes": null
+    },
+    {
+      "id": "icon-white-png",
+      "path": "assets/png/icon-white.png",
+      "markType": "icon",
+      "format": "png",
+      "colorVariant": "white",
+      "hex": "#ffffff",
+      "hierarchyTier": "secondary",
+      "intendedBackgrounds": ["blackforest", "pastelgreen"],
+      "transparency": true,
+      "pixelDimensions": "2000x2000",
+      "viewBox": null,
+      "whenToUse": "Icon-only 'OP' mark for dark (Black Forest) or Pastel Green backgrounds. Use when a raster file is required; prefer icon-white.svg when a scalable vector works.",
+      "integrityNotes": null
+    },
+    {
+      "id": "icon-pastelgreen-png",
+      "path": "assets/png/icon-pastelgreen.png",
+      "markType": "icon",
+      "format": "png",
+      "colorVariant": "pastelgreen",
+      "hex": "#6ae499",
+      "hierarchyTier": "tertiary",
+      "intendedBackgrounds": ["blackforest"],
+      "transparency": true,
+      "pixelDimensions": "2000x2000",
+      "viewBox": null,
+      "whenToUse": "Tertiary treatment: green icon-only mark, Black Forest background only. Use sparingly per the logo color hierarchy — black (primary) or white (secondary) are the default choices; reach for this only when the hierarchy calls for the tertiary option. See BRAND_IDENTITY.md §3.",
+      "integrityNotes": null
+    },
+    {
+      "id": "wordmark-black-png",
+      "path": "assets/png/wordmark-black.png",
+      "markType": "wordmark",
+      "format": "png",
+      "colorVariant": "black",
+      "hex": "#020202",
+      "hierarchyTier": "primary",
+      "intendedBackgrounds": ["white", "pastelgreen"],
+      "transparency": true,
+      "pixelDimensions": "1080x1080",
+      "viewBox": null,
+      "whenToUse": "Default full 'OPTIMIZERS' wordmark for light backgrounds (white or Pastel Green). Canvas is 1080x1080 but the wordmark is wide/short and does not fill the square — expect transparent padding on all sides; do not treat the canvas edge as a tight crop when compositing.",
+      "integrityNotes": null
+    },
+    {
+      "id": "wordmark-white-png",
+      "path": "assets/png/wordmark-white.png",
+      "markType": "wordmark",
+      "format": "png",
+      "colorVariant": "white",
+      "hex": "#ffffff",
+      "hierarchyTier": "secondary",
+      "intendedBackgrounds": ["blackforest", "pastelgreen"],
+      "transparency": true,
+      "pixelDimensions": "1080x1080",
+      "viewBox": null,
+      "whenToUse": "Full wordmark for dark (Black Forest) or Pastel Green backgrounds. Canvas is 1080x1080 but the wordmark does not fill the square — same padding behavior as wordmark-black.png.",
+      "integrityNotes": null
+    },
+    {
+      "id": "wordmark-pastelgreen-png",
+      "path": "assets/png/wordmark-pastelgreen.png",
+      "markType": "wordmark",
+      "format": "png",
+      "colorVariant": "pastelgreen",
+      "hex": "#6ae499",
+      "hierarchyTier": "tertiary",
+      "intendedBackgrounds": ["blackforest"],
+      "transparency": true,
+      "pixelDimensions": "1080x1080",
+      "viewBox": null,
+      "whenToUse": "Tertiary treatment: green wordmark, Black Forest background only. Use sparingly per the logo color hierarchy. Same canvas-padding behavior as the other wordmark PNGs.",
+      "integrityNotes": null
+    },
+    {
+      "id": "icon-black-svg",
+      "path": "assets/svg/icon-black.svg",
+      "markType": "icon",
+      "format": "svg",
+      "colorVariant": "black",
+      "hex": "#020202",
+      "hierarchyTier": "primary",
+      "intendedBackgrounds": ["white", "pastelgreen"],
+      "transparency": true,
+      "pixelDimensions": null,
+      "viewBox": "0 0 1467 934",
+      "whenToUse": "Default icon-only 'OP' mark for light backgrounds. Preferred over the PNG equivalent whenever a scalable vector is usable (web, print at any size).",
+      "integrityNotes": "Previously shipped with no explicit fill attribute (relied on the SVG spec's implicit default black), inconsistent with its two sibling icon SVGs which set fill explicitly via <style>. Fixed during the AI-agent brand-kit milestone (2026-08-17) to add explicit fill: #020202, matching the wordmark-black.svg convention."
+    },
+    {
+      "id": "icon-white-svg",
+      "path": "assets/svg/icon-white.svg",
+      "markType": "icon",
+      "format": "svg",
+      "colorVariant": "white",
+      "hex": "#ffffff",
+      "hierarchyTier": "secondary",
+      "intendedBackgrounds": ["blackforest", "pastelgreen"],
+      "transparency": true,
+      "pixelDimensions": null,
+      "viewBox": "0 0 1467 934",
+      "whenToUse": "Icon-only 'OP' mark for dark or Pastel Green backgrounds. Preferred over the PNG equivalent whenever a scalable vector is usable.",
+      "integrityNotes": null
+    },
+    {
+      "id": "icon-pastelgreen-svg",
+      "path": "assets/svg/icon-pastelgreen.svg",
+      "markType": "icon",
+      "format": "svg",
+      "colorVariant": "pastelgreen",
+      "hex": "#6ae499",
+      "hierarchyTier": "tertiary",
+      "intendedBackgrounds": ["blackforest"],
+      "transparency": true,
+      "pixelDimensions": null,
+      "viewBox": "0 0 1467 934",
+      "whenToUse": "Tertiary treatment: green icon-only mark, Black Forest background only. Use sparingly per the logo color hierarchy.",
+      "integrityNotes": null
+    },
+    {
+      "id": "wordmark-black-svg",
+      "path": "assets/svg/wordmark-black.svg",
+      "markType": "wordmark",
+      "format": "svg",
+      "colorVariant": "black",
+      "hex": "#020202",
+      "hierarchyTier": "primary",
+      "intendedBackgrounds": ["white", "pastelgreen"],
+      "transparency": true,
+      "pixelDimensions": null,
+      "viewBox": "0 0 1080 1080",
+      "whenToUse": "Default full wordmark for light backgrounds. Preferred over the PNG equivalent whenever a scalable vector is usable. viewBox is square (1080x1080) but the wordmark does not fill it — expect surrounding empty space.",
+      "integrityNotes": null
+    },
+    {
+      "id": "wordmark-white-svg",
+      "path": "assets/svg/wordmark-white.svg",
+      "markType": "wordmark",
+      "format": "svg",
+      "colorVariant": "white",
+      "hex": "#ffffff",
+      "hierarchyTier": "secondary",
+      "intendedBackgrounds": ["blackforest", "pastelgreen"],
+      "transparency": true,
+      "pixelDimensions": null,
+      "viewBox": "0 0 1080 1080",
+      "whenToUse": "Full wordmark for dark or Pastel Green backgrounds. Preferred over the PNG equivalent whenever a scalable vector is usable.",
+      "integrityNotes": null
+    },
+    {
+      "id": "wordmark-pastelgreen-svg",
+      "path": "assets/svg/wordmark-pastelgreen.svg",
+      "markType": "wordmark",
+      "format": "svg",
+      "colorVariant": "pastelgreen",
+      "hex": "#6ae499",
+      "hierarchyTier": "tertiary",
+      "intendedBackgrounds": ["blackforest"],
+      "transparency": true,
+      "pixelDimensions": null,
+      "viewBox": "0 0 1080 1080",
+      "whenToUse": "Tertiary treatment: green wordmark, Black Forest background only. Use sparingly per the logo color hierarchy.",
+      "integrityNotes": null
+    }
+  ],
+  "iconsNote": "The icons[] array below is a separate category from assets[] above: assets[] is the 12 official logo-mark files (icon/wordmark x black/white/pastelgreen), documented in the original brand kit. icons[] is a 16-icon UI iconography set built during the AI-agent-optimization milestone to match the brand's documented icon STYLE spec (BRAND_IDENTITY.md §6, PDF p.16: minimal line icons, rounded caps/corners, green stroke on dark background) — it was not part of the original kit, which included the style guidance but no actual icon files. Green-only (the one PDF-specified color pairing); no light-background variant exists.",
+  "icons": [
+    {
+      "id": "icon-cart",
+      "name": "cart",
+      "path": "assets/icons/cart.svg",
+      "viewBox": "0 0 24 24",
+      "strokeColor": "#6ae499",
+      "category": "commerce",
+      "whenToUse": "Shopping cart / checkout actions."
+    },
+    {
+      "id": "icon-chart-growth",
+      "name": "chart-growth",
+      "path": "assets/icons/chart-growth.svg",
+      "viewBox": "0 0 24 24",
+      "strokeColor": "#6ae499",
+      "category": "data",
+      "whenToUse": "Growth, analytics, or performance-trend indicators."
+    },
+    {
+      "id": "icon-check",
+      "name": "check",
+      "path": "assets/icons/check.svg",
+      "viewBox": "0 0 24 24",
+      "strokeColor": "#6ae499",
+      "category": "feedback",
+      "whenToUse": "Confirmation, success, or completed states."
+    },
+    {
+      "id": "icon-close",
+      "name": "close",
+      "path": "assets/icons/close.svg",
+      "viewBox": "0 0 24 24",
+      "strokeColor": "#6ae499",
+      "category": "action",
+      "whenToUse": "Dismiss, cancel, or close a modal/panel."
+    },
+    {
+      "id": "icon-search",
+      "name": "search",
+      "path": "assets/icons/search.svg",
+      "viewBox": "0 0 24 24",
+      "strokeColor": "#6ae499",
+      "category": "action",
+      "whenToUse": "Search or filter triggers."
+    },
+    {
+      "id": "icon-arrow-right",
+      "name": "arrow-right",
+      "path": "assets/icons/arrow-right.svg",
+      "viewBox": "0 0 24 24",
+      "strokeColor": "#6ae499",
+      "category": "navigation",
+      "whenToUse": "Forward navigation, 'next' actions, or directional emphasis."
+    },
+    {
+      "id": "icon-arrow-left",
+      "name": "arrow-left",
+      "path": "assets/icons/arrow-left.svg",
+      "viewBox": "0 0 24 24",
+      "strokeColor": "#6ae499",
+      "category": "navigation",
+      "whenToUse": "Back navigation or 'previous' actions."
+    },
+    {
+      "id": "icon-menu",
+      "name": "menu",
+      "path": "assets/icons/menu.svg",
+      "viewBox": "0 0 24 24",
+      "strokeColor": "#6ae499",
+      "category": "navigation",
+      "whenToUse": "Mobile/collapsed navigation triggers (hamburger menu)."
+    },
+    {
+      "id": "icon-heart",
+      "name": "heart",
+      "path": "assets/icons/heart.svg",
+      "viewBox": "0 0 24 24",
+      "strokeColor": "#6ae499",
+      "category": "commerce",
+      "whenToUse": "Wishlist, favorite, or save-for-later actions."
+    },
+    {
+      "id": "icon-star",
+      "name": "star",
+      "path": "assets/icons/star.svg",
+      "viewBox": "0 0 24 24",
+      "strokeColor": "#6ae499",
+      "category": "feedback",
+      "whenToUse": "Ratings, reviews, or highlighting featured items."
+    },
+    {
+      "id": "icon-box-package",
+      "name": "box-package",
+      "path": "assets/icons/box-package.svg",
+      "viewBox": "0 0 24 24",
+      "strokeColor": "#6ae499",
+      "category": "commerce",
+      "whenToUse": "Orders, products, or inventory/packaging contexts."
+    },
+    {
+      "id": "icon-truck-shipping",
+      "name": "truck-shipping",
+      "path": "assets/icons/truck-shipping.svg",
+      "viewBox": "0 0 24 24",
+      "strokeColor": "#6ae499",
+      "category": "commerce",
+      "whenToUse": "Shipping, delivery, or fulfillment status."
+    },
+    {
+      "id": "icon-dollar-payment",
+      "name": "dollar-payment",
+      "path": "assets/icons/dollar-payment.svg",
+      "viewBox": "0 0 24 24",
+      "strokeColor": "#6ae499",
+      "category": "commerce",
+      "whenToUse": "Pricing, payment, or checkout-total contexts."
+    },
+    {
+      "id": "icon-bell",
+      "name": "bell",
+      "path": "assets/icons/bell.svg",
+      "viewBox": "0 0 24 24",
+      "strokeColor": "#6ae499",
+      "category": "feedback",
+      "whenToUse": "Notifications or alerts."
+    },
+    {
+      "id": "icon-user",
+      "name": "user",
+      "path": "assets/icons/user.svg",
+      "viewBox": "0 0 24 24",
+      "strokeColor": "#6ae499",
+      "category": "navigation",
+      "whenToUse": "Account, profile, or login entry points."
+    },
+    {
+      "id": "icon-settings",
+      "name": "settings",
+      "path": "assets/icons/settings.svg",
+      "viewBox": "0 0 24 24",
+      "strokeColor": "#6ae499",
+      "category": "navigation",
+      "whenToUse": "Settings, preferences, or configuration entry points."
+    },
+    {
+      "id": "icon-plus",
+      "name": "plus",
+      "path": "assets/icons/plus.svg",
+      "viewBox": "0 0 24 24",
+      "strokeColor": "#6ae499",
+      "category": "action",
+      "whenToUse": "Add, create, or expand actions."
+    },
+    {
+      "id": "icon-minus",
+      "name": "minus",
+      "path": "assets/icons/minus.svg",
+      "viewBox": "0 0 24 24",
+      "strokeColor": "#6ae499",
+      "category": "action",
+      "whenToUse": "Remove, decrease, or collapse actions."
+    },
+    {
+      "id": "icon-edit-pencil",
+      "name": "edit-pencil",
+      "path": "assets/icons/edit-pencil.svg",
+      "viewBox": "0 0 24 24",
+      "strokeColor": "#6ae499",
+      "category": "action",
+      "whenToUse": "Edit or modify actions."
+    },
+    {
+      "id": "icon-trash",
+      "name": "trash",
+      "path": "assets/icons/trash.svg",
+      "viewBox": "0 0 24 24",
+      "strokeColor": "#6ae499",
+      "category": "action",
+      "whenToUse": "Delete or remove actions (destructive)."
+    },
+    {
+      "id": "icon-download",
+      "name": "download",
+      "path": "assets/icons/download.svg",
+      "viewBox": "0 0 24 24",
+      "strokeColor": "#6ae499",
+      "category": "action",
+      "whenToUse": "Download or save-to-device actions."
+    },
+    {
+      "id": "icon-upload",
+      "name": "upload",
+      "path": "assets/icons/upload.svg",
+      "viewBox": "0 0 24 24",
+      "strokeColor": "#6ae499",
+      "category": "action",
+      "whenToUse": "Upload or import actions."
+    },
+    {
+      "id": "icon-filter",
+      "name": "filter",
+      "path": "assets/icons/filter.svg",
+      "viewBox": "0 0 24 24",
+      "strokeColor": "#6ae499",
+      "category": "action",
+      "whenToUse": "Filter or refine a list/results view."
+    },
+    {
+      "id": "icon-calendar",
+      "name": "calendar",
+      "path": "assets/icons/calendar.svg",
+      "viewBox": "0 0 24 24",
+      "strokeColor": "#6ae499",
+      "category": "data",
+      "whenToUse": "Dates, scheduling, or calendar contexts."
+    },
+    {
+      "id": "icon-chevron-down",
+      "name": "chevron-down",
+      "path": "assets/icons/chevron-down.svg",
+      "viewBox": "0 0 24 24",
+      "strokeColor": "#6ae499",
+      "category": "navigation",
+      "whenToUse": "Expand, dropdown triggers, or collapsed-section indicators."
+    },
+    {
+      "id": "icon-chevron-up",
+      "name": "chevron-up",
+      "path": "assets/icons/chevron-up.svg",
+      "viewBox": "0 0 24 24",
+      "strokeColor": "#6ae499",
+      "category": "navigation",
+      "whenToUse": "Collapse or 'scroll to top' actions."
+    },
+    {
+      "id": "icon-lock",
+      "name": "lock",
+      "path": "assets/icons/lock.svg",
+      "viewBox": "0 0 24 24",
+      "strokeColor": "#6ae499",
+      "category": "feedback",
+      "whenToUse": "Security, privacy, or restricted/locked states."
+    },
+    {
+      "id": "icon-eye",
+      "name": "eye",
+      "path": "assets/icons/eye.svg",
+      "viewBox": "0 0 24 24",
+      "strokeColor": "#6ae499",
+      "category": "action",
+      "whenToUse": "Show/reveal content, e.g. toggling password visibility."
+    },
+    {
+      "id": "icon-mail",
+      "name": "mail",
+      "path": "assets/icons/mail.svg",
+      "viewBox": "0 0 24 24",
+      "strokeColor": "#6ae499",
+      "category": "commerce",
+      "whenToUse": "Email or messaging entry points."
+    },
+    {
+      "id": "icon-share",
+      "name": "share",
+      "path": "assets/icons/share.svg",
+      "viewBox": "0 0 24 24",
+      "strokeColor": "#6ae499",
+      "category": "action",
+      "whenToUse": "Share or distribute content."
+    },
+    {
+      "id": "icon-clock",
+      "name": "clock",
+      "path": "assets/icons/clock.svg",
+      "viewBox": "0 0 24 24",
+      "strokeColor": "#6ae499",
+      "category": "data",
+      "whenToUse": "Time, duration, or scheduling contexts."
+    },
+    {
+      "id": "icon-info",
+      "name": "info",
+      "path": "assets/icons/info.svg",
+      "viewBox": "0 0 24 24",
+      "strokeColor": "#6ae499",
+      "category": "feedback",
+      "whenToUse": "Informational messages or tooltips."
+    },
+    {
+      "id": "icon-external-link",
+      "name": "external-link",
+      "path": "assets/icons/external-link.svg",
+      "viewBox": "0 0 24 24",
+      "strokeColor": "#6ae499",
+      "category": "navigation",
+      "whenToUse": "Links that open outside the current context (new tab, external site)."
+    },
+    {
+      "id": "icon-warning",
+      "name": "warning",
+      "path": "assets/icons/warning.svg",
+      "viewBox": "0 0 24 24",
+      "strokeColor": "#6ae499",
+      "category": "feedback",
+      "whenToUse": "Warning or caution messages. Not a substitute for the non-brand danger/error color used in components.css."
+    },
+    {
+      "id": "icon-help-circle",
+      "name": "help-circle",
+      "path": "assets/icons/help-circle.svg",
+      "viewBox": "0 0 24 24",
+      "strokeColor": "#6ae499",
+      "category": "feedback",
+      "whenToUse": "Help, support, or contextual explanation entry points."
+    },
+    {
+      "id": "icon-refresh",
+      "name": "refresh",
+      "path": "assets/icons/refresh.svg",
+      "viewBox": "0 0 24 24",
+      "strokeColor": "#6ae499",
+      "category": "action",
+      "whenToUse": "Reload, retry, or sync actions."
+    },
+    {
+      "id": "icon-image",
+      "name": "image",
+      "path": "assets/icons/image.svg",
+      "viewBox": "0 0 24 24",
+      "strokeColor": "#6ae499",
+      "category": "data",
+      "whenToUse": "Image placeholders or media-upload contexts."
+    },
+    {
+      "id": "icon-tag",
+      "name": "tag",
+      "path": "assets/icons/tag.svg",
+      "viewBox": "0 0 24 24",
+      "strokeColor": "#6ae499",
+      "category": "commerce",
+      "whenToUse": "Pricing, discounts, or product-tag/label contexts."
+    },
+    {
+      "id": "icon-location-pin",
+      "name": "location-pin",
+      "path": "assets/icons/location-pin.svg",
+      "viewBox": "0 0 24 24",
+      "strokeColor": "#6ae499",
+      "category": "commerce",
+      "whenToUse": "Shipping address, store locator, or location contexts."
+    },
+    {
+      "id": "icon-phone",
+      "name": "phone",
+      "path": "assets/icons/phone.svg",
+      "viewBox": "0 0 24 24",
+      "strokeColor": "#6ae499",
+      "category": "commerce",
+      "whenToUse": "Phone/contact entry points."
+    }
+  ]
+}

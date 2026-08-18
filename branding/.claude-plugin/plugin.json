@@ -1,0 +1,11 @@
+{
+  "$schema": "https://anthropic.com/claude-code/plugin.schema.json",
+  "name": "branding",
+  "version": "1.0.0",
+  "description": "Optimizers brand kit (colors, logo, typography, buttons/components, icons, patterns) exposed as Claude Code skills, backed by BRAND_IDENTITY.md and the design-system tokens.",
+  "author": {
+    "name": "Optimizers",
+    "email": "adhammarzouk200@gmail.com"
+  },
+  "keywords": ["branding", "design-system", "brand-kit", "optimizers"]
+}

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Optimizers icon: settings. Style per BRAND_IDENTITY.md §6 / PDF [FACT p.16]: minimal line icon, rounded caps/corners, green stroke, dark-background context. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#6ae499" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M4 7h9M17 7h3M4 17h3M9 17h11"/>
+  <circle cx="15" cy="7" r="2"/>
+  <circle cx="7" cy="17" r="2"/>
+</svg>

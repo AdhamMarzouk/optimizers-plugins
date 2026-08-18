@@ -1,0 +1,74 @@
+/*
+ * Optimizers Grid & Spacing System — [DEFAULT] throughout.
+ *
+ * Not specified anywhere in the brand guidelines (confirmed absent via a
+ * full-text sweep of all 22 PDF pages) — this is a practical authoring
+ * convenience, not brand law, same footing as the radius/spacing tokens in
+ * tokens.css. See BRAND_IDENTITY.md's Grid & Spacing System section.
+ *
+ * Requires tokens.css to be loaded first.
+ *
+ * Note: breakpoint values are duplicated here as literal px (rather than
+ * referencing --op-breakpoint-* custom properties) because CSS media-query
+ * conditions cannot consume custom properties per spec. Keep these literals
+ * in sync with tokens.css / tokens.json if either changes.
+ */
+
+.op-container {
+  width: 100%;
+  max-width: var(--op-container-max-width);
+  margin-inline: auto;
+  padding-inline: var(--op-space-5); /* 24px gutter on the container edges */
+}
+
+.op-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--op-grid-columns), minmax(0, 1fr));
+  gap: var(--op-grid-gutter);
+}
+
+/* Column-span utilities, 1 through 12 */
+.op-col-1  { grid-column: span 1; }
+.op-col-2  { grid-column: span 2; }
+.op-col-3  { grid-column: span 3; }
+.op-col-4  { grid-column: span 4; }
+.op-col-5  { grid-column: span 5; }
+.op-col-6  { grid-column: span 6; }
+.op-col-7  { grid-column: span 7; }
+.op-col-8  { grid-column: span 8; }
+.op-col-9  { grid-column: span 9; }
+.op-col-10 { grid-column: span 10; }
+.op-col-11 { grid-column: span 11; }
+.op-col-12 { grid-column: span 12; }
+
+/* Below the sm breakpoint, single-column stacking is the practical default —
+   projects should override with their own responsive column choices above
+   this baseline as needed. */
+@media (max-width: 639px) {
+  .op-grid > [class^="op-col-"],
+  .op-grid > [class*=" op-col-"] {
+    grid-column: span var(--op-grid-columns);
+  }
+}
+
+/* Breakpoint-scoped column utilities (mirror the base op-col-* at each
+   breakpoint, prefixed md:/lg:/xl: in class name for clarity) */
+@media (min-width: 768px) {
+  .md\:op-col-1  { grid-column: span 1; }
+  .md\:op-col-2  { grid-column: span 2; }
+  .md\:op-col-3  { grid-column: span 3; }
+  .md\:op-col-4  { grid-column: span 4; }
+  .md\:op-col-6  { grid-column: span 6; }
+  .md\:op-col-8  { grid-column: span 8; }
+  .md\:op-col-12 { grid-column: span 12; }
+}
+
+@media (min-width: 1024px) {
+  .lg\:op-col-1  { grid-column: span 1; }
+  .lg\:op-col-2  { grid-column: span 2; }
+  .lg\:op-col-3  { grid-column: span 3; }
+  .lg\:op-col-4  { grid-column: span 4; }
+  .lg\:op-col-6  { grid-column: span 6; }
+  .lg\:op-col-8  { grid-column: span 8; }
+  .lg\:op-col-12 { grid-column: span 12; }
+}

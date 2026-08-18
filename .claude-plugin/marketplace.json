@@ -1,0 +1,26 @@
+{
+  "name": "optimizers-plugins",
+  "owner": {
+    "name": "Optimizers",
+    "email": "adhammarzouk200@gmail.com"
+  },
+  "metadata": {
+    "description": "Internal Claude Code plugin marketplace for Optimizers-built plugins.",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "branding",
+      "source": "./branding",
+      "description": "Optimizers brand kit as Claude Code skills: scaffolding/fixing UI to comply with the brand, auditing compliance, and frontend dev with the design system.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Optimizers",
+        "email": "adhammarzouk200@gmail.com"
+      },
+      "keywords": ["branding", "design-system", "brand-kit", "optimizers"],
+      "category": "design",
+      "strict": false
+    }
+  ]
+}

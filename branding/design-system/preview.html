@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Optimizers Design System Preview</title>
+<link rel="stylesheet" href="./tokens.css">
+<link rel="stylesheet" href="./components.css">
+<link rel="stylesheet" href="./layout.css">
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: var(--op-font-en);
+    color: var(--op-text-body);
+    background: #fafbfa;
+  }
+  header.hero {
+    background: var(--op-color-black-forest);
+    color: #fff;
+    padding: var(--op-space-8) var(--op-space-6);
+    position: relative;
+    overflow: hidden;
+  }
+  header.hero .op-pattern {
+    position: absolute;
+    inset: 0;
+  }
+  header.hero .hero-inner { position: relative; }
+  header.hero img { height: 40px; margin-bottom: var(--op-space-5); }
+  header.hero h1 {
+    font-size: var(--op-font-size-headline);
+    font-weight: var(--op-font-weight-headline);
+    margin: 0 0 var(--op-space-3);
+  }
+  header.hero p {
+    font-size: var(--op-font-size-subhead-2);
+    font-weight: 300;
+    color: var(--op-color-pastel-green);
+    margin: 0;
+    max-width: 46ch;
+  }
+
+  main { max-width: 1080px; margin: 0 auto; padding: 0 var(--op-space-6) var(--op-space-8); }
+
+  section { padding: var(--op-space-8) 0; border-bottom: 1px solid #e4e6e8; }
+  section:last-child { border-bottom: none; }
+  section > h2 {
+    font-size: var(--op-font-size-subhead-1);
+    font-weight: var(--op-font-weight-subhead);
+    color: var(--op-text-headline);
+    margin: 0 0 var(--op-space-2);
+  }
+  section > p.section-note {
+    font-size: 14px;
+    color: #6b7280;
+    margin: 0 0 var(--op-space-6);
+    max-width: 70ch;
+  }
+
+  .tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: var(--op-radius-sm);
+    margin-left: var(--op-space-2);
+  }
+  .tag--fact { background: #e4f9ec; color: #1f7a45; }
+  .tag--inferred { background: #fff4de; color: #9a6a00; }
+  .tag--unverified { background: #fde8e8; color: #b23a3a; }
+  .tag--default { background: #eef0f2; color: #52585e; }
+
+  /* Logo grid */
+  .logo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: var(--op-space-5);
+  }
+  .logo-card {
+    border-radius: var(--op-radius-md);
+    overflow: hidden;
+    border: 1px solid #e4e6e8;
+  }
+  .logo-card .swatch {
+    height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--op-space-4);
+  }
+  .logo-card .swatch.bg-white { background: #ffffff; }
+  .logo-card .swatch.bg-blackforest { background: var(--op-color-black-forest); }
+  .logo-card .swatch.bg-pastelgreen { background: var(--op-color-pastel-green); }
+  .logo-card .swatch img { max-height: 100%; max-width: 100%; }
+  .logo-card .meta {
+    padding: var(--op-space-3) var(--op-space-4);
+    background: #fff;
+    font-size: 12px;
+  }
+  .logo-card .meta code { font-size: 11px; color: #6b7280; }
+  .logo-card .meta .tier {
+    display: inline-block;
+    margin-top: var(--op-space-1);
+    font-weight: 600;
+    text-transform: capitalize;
+  }
+
+  /* Color swatches */
+  .color-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--op-space-5); }
+  .color-swatch { border-radius: var(--op-radius-md); overflow: hidden; border: 1px solid #e4e6e8; }
+  .color-swatch .fill { height: 100px; }
+  .color-swatch .info { padding: var(--op-space-3) var(--op-space-4); background: #fff; font-size: 13px; }
+  .color-swatch .info strong { display: block; font-size: 14px; margin-bottom: 2px; }
+  .color-swatch .info code { color: #6b7280; }
+
+  /* Typography */
+  .type-row { margin-bottom: var(--op-space-5); }
+  .type-row .label { font-size: 12px; color: #6b7280; margin-bottom: var(--op-space-1); }
+  .headline-demo { font-size: var(--op-font-size-headline); font-weight: var(--op-font-weight-headline); color: var(--op-text-headline); margin: 0; }
+  .subhead1-demo { font-size: var(--op-font-size-subhead-1); font-weight: var(--op-font-weight-subhead); color: var(--op-text-headline); margin: 0; }
+  .subhead2-demo { font-size: var(--op-font-size-subhead-2); font-weight: var(--op-font-weight-subhead); color: var(--op-text-headline); margin: 0; }
+  .paragraph-demo { font-size: var(--op-font-size-paragraph); font-weight: var(--op-font-weight-paragraph); color: var(--op-text-body); margin: 0; max-width: 60ch; }
+  .arabic-demo {
+    font-family: var(--op-font-ar);
+    direction: rtl;
+    text-align: right;
+    font-size: 28px;
+    color: var(--op-text-headline);
+    margin: 0;
+  }
+
+  /* Buttons row */
+  .btn-row { display: flex; flex-wrap: wrap; gap: var(--op-space-4); align-items: center; padding: var(--op-space-6); border-radius: var(--op-radius-md); }
+  .btn-row.on-light { background: #fff; border: 1px solid #e4e6e8; }
+  .btn-row.on-dark { background: var(--op-color-black-forest); }
+
+  /* Component demos */
+  .component-block { margin-bottom: var(--op-space-6); }
+  .component-block h3 { font-size: 15px; margin: 0 0 var(--op-space-3); }
+  .card-demo-row { display: flex; flex-wrap: wrap; gap: var(--op-space-4); }
+  .card-demo-row .op-card { flex: 1 1 200px; }
+  .card-demo-row .op-card h4 { margin: 0 0 var(--op-space-2); font-size: 15px; }
+  .card-demo-row .op-card p { margin: 0; font-size: 13px; opacity: 0.85; }
+
+  /* Icon grid */
+  .icon-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: var(--op-space-3);
+    background: var(--op-color-black-forest);
+    padding: var(--op-space-5);
+    border-radius: var(--op-radius-md);
+  }
+  .icon-card {
+    display: flex; flex-direction: column; align-items: center; gap: var(--op-space-2);
+    padding: var(--op-space-3); border-radius: var(--op-radius-sm);
+  }
+  .icon-card img { width: 28px; height: 28px; }
+  .icon-card .label { font-size: 11px; color: #fff; opacity: 0.85; text-align: center; }
+
+  /* Example form */
+  .example-form { max-width: 420px; display: grid; gap: var(--op-space-4); }
+  .form-field { display: grid; gap: var(--op-space-1); }
+  .form-label { font-size: 13px; font-weight: 600; color: var(--op-text-headline); }
+  .form-checkbox-row { display: flex; align-items: center; gap: var(--op-space-2); font-size: 13px; color: var(--op-text-body); }
+  .form-actions { display: flex; gap: var(--op-space-3); margin-top: var(--op-space-2); }
+
+  /* Grid demo */
+  .grid-demo .op-container { background: #fff; border: 1px dashed #c7ccd1; border-radius: var(--op-radius-md); padding-block: var(--op-space-5); }
+  .grid-demo .op-col-4, .grid-demo .op-col-6, .grid-demo .op-col-12 {
+    background: var(--op-color-pastel-green);
+    color: var(--op-text-on-green);
+    border-radius: var(--op-radius-sm);
+    padding: var(--op-space-3);
+    font-size: 12px;
+    text-align: center;
+  }
+  .grid-demo-row { margin-bottom: var(--op-space-3); }
+
+  /* Pattern demo */
+  .pattern-demo-row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--op-space-5); }
+  .pattern-demo-box { height: 180px; border-radius: var(--op-radius-md); position: relative; overflow: hidden; }
+  .pattern-demo-box.dark { background: var(--op-color-black-forest); }
+  .pattern-demo-box.green { background: var(--op-color-pastel-green); }
+  .pattern-demo-box .op-pattern { position: absolute; inset: 0; }
+  .pattern-demo-box .caption {
+    position: absolute; bottom: var(--op-space-3); left: var(--op-space-3);
+    font-size: 12px; color: #fff; opacity: 0.9;
+  }
+  .pattern-demo-box.green .caption { color: var(--op-color-black-forest); }
+
+  /* Pre-composited pattern backgrounds showcase */
+  .pattern-bg-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: var(--op-space-5); }
+  .pattern-bg-card { border-radius: var(--op-radius-md); overflow: hidden; border: 1px solid #e4e6e8; }
+  .pattern-bg-card svg { display: block; width: 100%; height: 300px; }
+  .pattern-bg-card .meta { padding: var(--op-space-3) var(--op-space-4); background: #fff; font-size: 12px; }
+  .pattern-bg-card .meta .flag { display: block; margin-top: 2px; color: #6b7280; }
+
+  .doc-pointer {
+    display: inline-block; margin-top: var(--op-space-3); font-size: 12px; color: #6b7280;
+  }
+  .doc-pointer code { color: inherit; }
+
+  /* Favicon demo */
+  .favicon-row { display: flex; flex-wrap: wrap; gap: var(--op-space-5); align-items: flex-end; }
+  .favicon-item { text-align: center; }
+  .favicon-item img { display: block; background: #f2f3f4; border-radius: var(--op-radius-sm); }
+  .favicon-item .label { font-size: 11px; color: #6b7280; margin-top: var(--op-space-2); }
+
+  footer {
+    padding: var(--op-space-6);
+    text-align: center;
+    font-size: 12px;
+    color: #9aa1a8;
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="op-pattern op-pattern--overlay"></div>
+  <div class="hero-inner">
+    <img src="../assets/svg/wordmark-white.svg" alt="Optimizers">
+    <h1>Design System Preview</h1>
+    <p>We make optimization Simple, Practical, and Profitable for e-commerce businesses.</p>
+  </div>
+</header>
+
+<main>
+
+  <section id="logos">
+    <h2>Logo Assets</h2>
+    <p class="section-note">Every asset in <code>assets/manifest.json</code>, rendered on its intended background. Primary = black on white/green, Secondary = white on dark/green, Tertiary = green on dark only, used sparingly.</p>
+    <div class="logo-grid">
+      <div class="logo-card">
+        <div class="swatch bg-white"><img src="../assets/svg/icon-black.svg" alt="icon black"></div>
+        <div class="meta"><code>icon-black.svg</code><span class="tier">primary</span></div>
+      </div>
+      <div class="logo-card">
+        <div class="swatch bg-blackforest"><img src="../assets/svg/icon-white.svg" alt="icon white"></div>
+        <div class="meta"><code>icon-white.svg</code><span class="tier">secondary</span></div>
+      </div>
+      <div class="logo-card">
+        <div class="swatch bg-blackforest"><img src="../assets/svg/icon-pastelgreen.svg" alt="icon pastel green"></div>
+        <div class="meta"><code>icon-pastelgreen.svg</code><span class="tier">tertiary</span></div>
+      </div>
+      <div class="logo-card">
+        <div class="swatch bg-white"><img src="../assets/svg/wordmark-black.svg" alt="wordmark black"></div>
+        <div class="meta"><code>wordmark-black.svg</code><span class="tier">primary</span></div>
+      </div>
+      <div class="logo-card">
+        <div class="swatch bg-blackforest"><img src="../assets/svg/wordmark-white.svg" alt="wordmark white"></div>
+        <div class="meta"><code>wordmark-white.svg</code><span class="tier">secondary</span></div>
+      </div>
+      <div class="logo-card">
+        <div class="swatch bg-blackforest"><img src="../assets/svg/wordmark-pastelgreen.svg" alt="wordmark pastel green"></div>
+        <div class="meta"><code>wordmark-pastelgreen.svg</code><span class="tier">tertiary</span></div>
+      </div>
+      <div class="logo-card">
+        <div class="swatch bg-pastelgreen"><img src="../assets/svg/icon-black.svg" alt="icon black on green"></div>
+        <div class="meta"><code>icon-black.svg</code> on Pastel Green<span class="tier">primary</span></div>
+      </div>
+      <div class="logo-card">
+        <div class="swatch bg-pastelgreen"><img src="../assets/svg/wordmark-white.svg" alt="wordmark white on green"></div>
+        <div class="meta"><code>wordmark-white.svg</code> on Pastel Green<span class="tier">secondary</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="colors">
+    <h2>Color Palette <span class="tag tag--fact">FACT p.14</span></h2>
+    <p class="section-note">Exact hex/RGB/CMYK from the brand guidelines. No tints, shades, secondary accent, or semantic colors are defined in the source — none are invented here.</p>
+    <div class="color-grid">
+      <div class="color-swatch">
+        <div class="fill" style="background: var(--op-color-pastel-green);"></div>
+        <div class="info"><strong>Pastel Green</strong><code>#6ae499</code> · R106 G228 B153<br>"Used with some text headlines, numbers, icons and some background."</div>
+      </div>
+      <div class="color-swatch">
+        <div class="fill" style="background: var(--op-color-big-stone);"></div>
+        <div class="info"><strong>Big Stone</strong> (Light black)<br><code>#162a3d</code> · R22 G42 B61<br>"Used with paragraphs and backgrounds."</div>
+      </div>
+      <div class="color-swatch">
+        <div class="fill" style="background: var(--op-color-black-forest);"></div>
+        <div class="info"><strong>Black Forest</strong> (Dark black)<br><code>#020601</code> · R2 G6 B1<br>"Used with main headlines and the text on the green color."</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="typography">
+    <h2>Typography <span class="tag tag--fact">FACT p.12</span></h2>
+    <p class="section-note">Hierarchy sizes are concrete <span class="tag tag--default">DEFAULT</span> values chosen to satisfy the PDF's relative rules (e.g. "half size of the main headline"). Arabic mapping is <span class="tag tag--inferred">INFERRED</span> — the source never mentions Arabic in its hierarchy page.</p>
+
+    <div class="type-row">
+      <div class="label">Headline — Sora Bold</div>
+      <p class="headline-demo">Optimization, compounding.</p>
+    </div>
+    <div class="type-row">
+      <div class="label">Sub-Headline 1 — Sora SemiBold</div>
+      <p class="subhead1-demo">Simple, Practical, Profitable.</p>
+    </div>
+    <div class="type-row">
+      <div class="label">Sub-Headline 2 — Sora SemiBold</div>
+      <p class="subhead2-demo">For e-commerce businesses.</p>
+    </div>
+    <div class="type-row">
+      <div class="label">Paragraph — Sora Light (≤24px)</div>
+      <p class="paragraph-demo">Sora is the voice of our brand. Strong, modern, and confident, it ensures clarity, impact, and timeless presence across every visual.</p>
+    </div>
+    <div class="type-row">
+      <div class="label">Arabic — KO Sans (generic pangram specimen, not sourced from the PDF)</div>
+      <p class="arabic-demo" lang="ar" dir="rtl">نص حكيم له سر قاطع وذو شأن عظيم مكتوب على ثوب أخضر</p>
+    </div>
+  </section>
+
+  <section id="icons">
+    <h2>Iconography <span class="tag tag--fact">FACT p.16</span></h2>
+    <p class="section-note">"Minimal, with rounded edges and rounded corners... green brand color on the black background." 40 UI icons built to this spec, indexed in <code>assets/manifest.json</code>'s <code>icons[]</code>. Green-only — no light-background variant exists in the source.</p>
+    <div class="icon-grid">
+      <div class="icon-card"><img src="../assets/icons/cart.svg" alt="cart"><span class="label">cart</span></div>
+      <div class="icon-card"><img src="../assets/icons/chart-growth.svg" alt="chart-growth"><span class="label">chart-growth</span></div>
+      <div class="icon-card"><img src="../assets/icons/check.svg" alt="check"><span class="label">check</span></div>
+      <div class="icon-card"><img src="../assets/icons/close.svg" alt="close"><span class="label">close</span></div>
+      <div class="icon-card"><img src="../assets/icons/search.svg" alt="search"><span class="label">search</span></div>
+      <div class="icon-card"><img src="../assets/icons/arrow-right.svg" alt="arrow-right"><span class="label">arrow-right</span></div>
+      <div class="icon-card"><img src="../assets/icons/arrow-left.svg" alt="arrow-left"><span class="label">arrow-left</span></div>
+      <div class="icon-card"><img src="../assets/icons/menu.svg" alt="menu"><span class="label">menu</span></div>
+      <div class="icon-card"><img src="../assets/icons/heart.svg" alt="heart"><span class="label">heart</span></div>
+      <div class="icon-card"><img src="../assets/icons/star.svg" alt="star"><span class="label">star</span></div>
+      <div class="icon-card"><img src="../assets/icons/box-package.svg" alt="box-package"><span class="label">box-package</span></div>
+      <div class="icon-card"><img src="../assets/icons/truck-shipping.svg" alt="truck-shipping"><span class="label">truck-shipping</span></div>
+      <div class="icon-card"><img src="../assets/icons/dollar-payment.svg" alt="dollar-payment"><span class="label">dollar-payment</span></div>
+      <div class="icon-card"><img src="../assets/icons/bell.svg" alt="bell"><span class="label">bell</span></div>
+      <div class="icon-card"><img src="../assets/icons/user.svg" alt="user"><span class="label">user</span></div>
+      <div class="icon-card"><img src="../assets/icons/settings.svg" alt="settings"><span class="label">settings</span></div>
+      <div class="icon-card"><img src="../assets/icons/plus.svg" alt="plus"><span class="label">plus</span></div>
+      <div class="icon-card"><img src="../assets/icons/minus.svg" alt="minus"><span class="label">minus</span></div>
+      <div class="icon-card"><img src="../assets/icons/edit-pencil.svg" alt="edit-pencil"><span class="label">edit-pencil</span></div>
+      <div class="icon-card"><img src="../assets/icons/trash.svg" alt="trash"><span class="label">trash</span></div>
+      <div class="icon-card"><img src="../assets/icons/download.svg" alt="download"><span class="label">download</span></div>
+      <div class="icon-card"><img src="../assets/icons/upload.svg" alt="upload"><span class="label">upload</span></div>
+      <div class="icon-card"><img src="../assets/icons/filter.svg" alt="filter"><span class="label">filter</span></div>
+      <div class="icon-card"><img src="../assets/icons/calendar.svg" alt="calendar"><span class="label">calendar</span></div>
+      <div class="icon-card"><img src="../assets/icons/chevron-down.svg" alt="chevron-down"><span class="label">chevron-down</span></div>
+      <div class="icon-card"><img src="../assets/icons/chevron-up.svg" alt="chevron-up"><span class="label">chevron-up</span></div>
+      <div class="icon-card"><img src="../assets/icons/lock.svg" alt="lock"><span class="label">lock</span></div>
+      <div class="icon-card"><img src="../assets/icons/eye.svg" alt="eye"><span class="label">eye</span></div>
+      <div class="icon-card"><img src="../assets/icons/mail.svg" alt="mail"><span class="label">mail</span></div>
+      <div class="icon-card"><img src="../assets/icons/share.svg" alt="share"><span class="label">share</span></div>
+      <div class="icon-card"><img src="../assets/icons/clock.svg" alt="clock"><span class="label">clock</span></div>
+      <div class="icon-card"><img src="../assets/icons/info.svg" alt="info"><span class="label">info</span></div>
+      <div class="icon-card"><img src="../assets/icons/external-link.svg" alt="external-link"><span class="label">external-link</span></div>
+      <div class="icon-card"><img src="../assets/icons/warning.svg" alt="warning"><span class="label">warning</span></div>
+      <div class="icon-card"><img src="../assets/icons/help-circle.svg" alt="help-circle"><span class="label">help-circle</span></div>
+      <div class="icon-card"><img src="../assets/icons/refresh.svg" alt="refresh"><span class="label">refresh</span></div>
+      <div class="icon-card"><img src="../assets/icons/image.svg" alt="image"><span class="label">image</span></div>
+      <div class="icon-card"><img src="../assets/icons/tag.svg" alt="tag"><span class="label">tag</span></div>
+      <div class="icon-card"><img src="../assets/icons/location-pin.svg" alt="location-pin"><span class="label">location-pin</span></div>
+      <div class="icon-card"><img src="../assets/icons/phone.svg" alt="phone"><span class="label">phone</span></div>
+    </div>
+  </section>
+
+  <section id="buttons">
+    <h2>Buttons <span class="tag tag--fact">FACT p.21</span></h2>
+    <p class="section-note">Primary/Secondary base colors and outline treatment are spec'd. Hover colors are <span class="tag tag--unverified">UNVERIFIED</span> — no PDF page-image rendering was possible in this environment to confirm the exact hover hex, so the shades below are a documented <span class="tag tag--default">DEFAULT</span> placeholder. Ghost and Danger below are <span class="tag tag--inferred">NOT OFFICIALLY SPECIFIED</span> — Ghost is on-brand (no new colors), Danger is explicitly non-brand (reuses the same red as input error states). See the semantic mapping table in <code>COMPONENTS.md</code> for when "Confirm"/"Cancel"/"Delete" map to which variant.</p>
+    <div class="btn-row on-light">
+      <button class="op-btn op-btn--primary">Primary Action</button>
+      <button class="op-btn op-btn--secondary-light">Secondary Action</button>
+      <button class="op-btn op-btn--ghost-light">Ghost Action</button>
+      <button class="op-btn op-btn--danger">Delete</button>
+    </div>
+    <div class="btn-row on-dark" style="margin-top: var(--op-space-4);">
+      <button class="op-btn op-btn--primary">Primary Action</button>
+      <button class="op-btn op-btn--secondary-dark">Secondary Action</button>
+      <button class="op-btn op-btn--ghost-dark">Ghost Action</button>
+      <button class="op-btn op-btn--danger">Delete</button>
+    </div>
+    <p class="doc-pointer">Usage rules + Confirm/Cancel/Delete semantic mapping: <code>design-system/COMPONENTS.md</code></p>
+  </section>
+
+  <section id="components">
+    <h2>Extrapolated Components <span class="tag tag--inferred">NOT OFFICIALLY SPECIFIED</span></h2>
+    <p class="section-note">Inputs, cards, and badges are not defined anywhere in the brand guidelines. These are styled to match the palette/typography for practical usability — get design sign-off before treating as brand law in client-facing work.</p>
+
+    <div class="component-block">
+      <h3>Inputs</h3>
+      <div style="max-width: 360px; display: grid; gap: var(--op-space-3);">
+        <input class="op-input" placeholder="Default state">
+        <input class="op-input" placeholder="Focus me" onfocus="">
+        <input class="op-input" placeholder="Disabled" disabled>
+        <input class="op-input op-input--error" placeholder="Error state" value="invalid@">
+      </div>
+    </div>
+
+    <div class="component-block">
+      <h3>Cards</h3>
+      <div class="card-demo-row">
+        <div class="op-card op-card--light"><h4>Light surface</h4><p>Big Stone body text on white.</p></div>
+        <div class="op-card op-card--dark"><h4>Dark surface</h4><p>White text on Black Forest.</p></div>
+        <div class="op-card op-card--accent"><h4>Accent surface</h4><p>Required Black Forest text on Pastel Green.</p></div>
+      </div>
+    </div>
+
+    <div class="component-block">
+      <h3>Badges</h3>
+      <span class="op-badge">New</span>
+      <span class="op-badge">Optimized</span>
+    </div>
+    <p class="doc-pointer">Purpose/variants/do-don't/accessibility per component: <code>design-system/COMPONENTS.md</code></p>
+  </section>
+
+  <section id="example-form">
+    <h2>Example: Contact Form <span class="tag tag--inferred">NOT OFFICIALLY SPECIFIED</span></h2>
+    <p class="section-note">Composition example showing the extrapolated components (inputs, textarea, checkbox) and buttons (Primary + Ghost) working together. The same markup pattern is documented in <code>design-system/COMPONENTS.md</code> for direct reuse.</p>
+    <form class="example-form" onsubmit="return false;">
+      <label class="form-field">
+        <span class="form-label">Name</span>
+        <input class="op-input" type="text" placeholder="Jane Doe">
+      </label>
+      <label class="form-field">
+        <span class="form-label">Email</span>
+        <input class="op-input" type="email" placeholder="jane@example.com">
+      </label>
+      <label class="form-field">
+        <span class="form-label">Message</span>
+        <textarea class="op-input" placeholder="How can we help?"></textarea>
+      </label>
+      <label class="form-checkbox-row">
+        <input class="op-checkbox" type="checkbox">
+        <span>I agree to the terms and privacy policy.</span>
+      </label>
+      <div class="form-actions">
+        <button class="op-btn op-btn--primary" type="submit">Submit</button>
+        <button class="op-btn op-btn--ghost-light" type="reset">Cancel</button>
+      </div>
+    </form>
+  </section>
+
+  <section id="grid">
+    <h2>Grid &amp; Spacing System <span class="tag tag--default">DEFAULT</span></h2>
+    <p class="section-note">Not brand-specified — confirmed absent from the source. 12-column grid, 640/768/1024/1280px breakpoints, 1200px container max-width, reusing the existing 8px-based spacing scale. See <code>design-system/layout.css</code>.</p>
+    <div class="grid-demo">
+      <div class="op-container">
+        <div class="op-grid grid-demo-row">
+          <div class="op-col-4">op-col-4</div>
+          <div class="op-col-4">op-col-4</div>
+          <div class="op-col-4">op-col-4</div>
+        </div>
+        <div class="op-grid grid-demo-row">
+          <div class="op-col-6">op-col-6</div>
+          <div class="op-col-6">op-col-6</div>
+        </div>
+        <div class="op-grid">
+          <div class="op-col-12">op-col-12</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="pattern">
+    <h2>Pattern <span class="tag tag--fact">FACT p.20</span></h2>
+    <p class="section-note">"Outline style in green... opacity to match the background color." Overlay mode on dark backgrounds, Multiply mode on Pastel Green. Tile density/opacity are <span class="tag tag--default">DEFAULT</span> authoring choices. <strong>Note:</strong> at the default 12% opacity, CSS overlay blend against Black Forest's near-pure-black reads as nearly flat &mdash; a verified color-math property of overlay-on-near-black, not a broken asset. See <code>BRAND_IDENTITY.md</code> §8.</p>
+    <p class="section-note" style="margin-bottom: var(--op-space-3);"><strong>Live CSS version</strong> — opacity boosted to 45% <em>in this demo only</em> (real shipped default is 12%, deliberately subtle so it doesn't fight foreground content). <strong>The left box below will still look flat even boosted</strong> — that's not a display error, it's the actual overlay-on-near-black limitation explained above: opacity doesn't fix it because the blend formula itself collapses against a near-zero-luminance base. The right box (multiply/green) genuinely shows the boost working, since multiply isn't affected the same way. Use the pre-composited backgrounds below for a guaranteed-visible result on Black Forest.</p>
+    <div class="pattern-demo-row">
+      <div class="pattern-demo-box dark">
+        <div class="op-pattern op-pattern--overlay" style="opacity: 0.45;"></div>
+        <div class="caption">Overlay · Black Forest bg (still flat — this is the bug being explained, not fixed here)</div>
+      </div>
+      <div class="pattern-demo-box green">
+        <div class="op-pattern op-pattern--multiply" style="opacity: 0.45;"></div>
+        <div class="caption">Multiply · Pastel Green bg (demo-boosted opacity — this one works)</div>
+      </div>
+    </div>
+
+    <p class="section-note" style="margin: var(--op-space-6) 0 var(--op-space-3);"><strong>Pre-composited backgrounds</strong> — guaranteed-correct, no blend-mode dependency. This is what actually fixes the Black Forest case above:</p>
+    <p class="section-note" style="margin: 0 0 var(--op-space-3);">Rendered as inline SVG below (not <code>&lt;img&gt;</code>) so stroke weight is live-tunable — edit <code>--op-pattern-bg-stroke-width</code> / <code>--op-pattern-bg-stroke-opacity</code> in <code>tokens.css</code> and refresh, no rebuild step. The standalone <code>pattern-bg-*.svg</code>/<code>.png</code> files in <code>design-system/pattern/backgrounds/</code> are a separate, portable baked snapshot of these same values — they don't update automatically; ask for a regeneration if you change the tokens and want the portable files to match.</p>
+    <div class="pattern-bg-row">
+      <div class="pattern-bg-card">
+        <svg viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" role="img" aria-label="pattern background, Black Forest">
+          <defs>
+            <pattern id="op-motif-blackforest" width="220" height="150" patternUnits="userSpaceOnUse">
+              <g transform="translate(33,25.97) scale(0.105)" fill="none" stroke="#6ae499"
+                 style="stroke-width: var(--op-pattern-bg-stroke-width); stroke-opacity: var(--op-pattern-bg-stroke-opacity);"
+                 vector-effect="non-scaling-stroke" stroke-linejoin="round" stroke-linecap="round">
+                <path d="M843.31,415.34l-20.63,100.63-14.59,87.52c-1.71,10.19-11.35,17.08-21.55,15.37-4.18-.7-8-2.8-10.84-5.96l-15.98-17.84c-64.22,90.86-168.58,144.85-279.84,144.78-233.03,0-411.8-232.61-316.76-478.27,32.36-83.31,98.29-149.15,181.64-181.4,81.64-31.55,161.81-32.78,232.43-11.9l22.63,7.97c12.81,4.55,22.4,15.92,23.41,29.46,0,.91.1,1.85.1,2.76,0,1.95-.16,3.89-.46,5.81-.32,2.05-.93,4.03-1.82,5.9l-4.51,9.77-30.95,67.29c-7.45,15.98-26.07,23.39-42.46,16.91-22.41-8.62-46.22-13.03-70.23-13.01-135.64,0-239.08,137.86-177.83,281.17,17.27,40.67,49.28,73.29,89.61,91.34,114.62,50.72,226.31-4.27,267.48-97.55l-25.31-27.74c-1.86-1.99-3.24-4.37-4.06-6.97-3.12-9.85,2.34-20.37,12.19-23.49,1.11-.35,2.25-.6,3.41-.74l29.69-3.6,49.67-6.02,67.97-9.4,36.69-5.07h.25c10.26-1.27,19.6,6.02,20.87,16.28.25,2,.17,4.03-.23,6Z"/>
+                <path d="M1303.88,494.04c-32.36,83.31-98.29,149.15-181.64,181.4-33.24,12.99-68.14,21.25-103.68,24.53v166.24c-.08,28.7-23.32,51.95-52.02,52.02h-35.87c-28.7-.08-51.95-23.32-52.02-52.02v-182.8l-11.47-4.04c-12.81-4.55-22.4-15.92-23.41-29.46,0-.91-.1-1.86-.1-2.76,0-1.95.16-3.89.46-5.81.32-2.05.93-4.04,1.82-5.9l4.63-9.75,28.16-61.21v-171.38c.07-28.7,23.32-51.95,52.02-52.02h35.88c28.7.07,51.95,23.32,52.02,52.02v159.86c123.23-15.36,210.89-145.1,153.39-279.63-17.29-40.64-49.31-73.24-89.63-91.26-114.62-50.72-226.31,4.27-267.48,97.55l25.22,27.65c1.86,1.99,3.25,4.37,4.06,6.97,3.12,9.85-2.34,20.37-12.19,23.49-1.11.35-2.25.6-3.41.74l-29.69,3.6-49.67,6.02-67.97,9.4-36.69,5.07h-.25c-10.26,1.29-19.61-5.98-20.9-16.24-.25-2.03-.18-4.08.23-6.08l20.63-100.63,14.59-87.52c1.71-10.19,11.35-17.08,21.55-15.37,4.18.7,8,2.8,10.84,5.96l15.98,17.84C771.49,69.66,875.85,15.68,987.12,15.77c233.03,0,411.8,232.61,316.76,478.27Z"/>
+              </g>
+            </pattern>
+          </defs>
+          <rect width="1200" height="800" fill="#020601"/>
+          <rect width="1200" height="800" fill="url(#op-motif-blackforest)"/>
+        </svg>
+        <div class="meta"><code>pattern-bg-blackforest.svg</code><span class="flag">FACT p.20 pairing</span></div>
+      </div>
+      <div class="pattern-bg-card">
+        <svg viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" role="img" aria-label="pattern background, Pastel Green">
+          <defs>
+            <pattern id="op-motif-pastelgreen" width="220" height="150" patternUnits="userSpaceOnUse">
+              <g transform="translate(33,25.97) scale(0.105)" fill="none" stroke="#020601"
+                 style="stroke-width: var(--op-pattern-bg-stroke-width); stroke-opacity: var(--op-pattern-bg-stroke-opacity);"
+                 vector-effect="non-scaling-stroke" stroke-linejoin="round" stroke-linecap="round">
+                <path d="M843.31,415.34l-20.63,100.63-14.59,87.52c-1.71,10.19-11.35,17.08-21.55,15.37-4.18-.7-8-2.8-10.84-5.96l-15.98-17.84c-64.22,90.86-168.58,144.85-279.84,144.78-233.03,0-411.8-232.61-316.76-478.27,32.36-83.31,98.29-149.15,181.64-181.4,81.64-31.55,161.81-32.78,232.43-11.9l22.63,7.97c12.81,4.55,22.4,15.92,23.41,29.46,0,.91.1,1.85.1,2.76,0,1.95-.16,3.89-.46,5.81-.32,2.05-.93,4.03-1.82,5.9l-4.51,9.77-30.95,67.29c-7.45,15.98-26.07,23.39-42.46,16.91-22.41-8.62-46.22-13.03-70.23-13.01-135.64,0-239.08,137.86-177.83,281.17,17.27,40.67,49.28,73.29,89.61,91.34,114.62,50.72,226.31-4.27,267.48-97.55l-25.31-27.74c-1.86-1.99-3.24-4.37-4.06-6.97-3.12-9.85,2.34-20.37,12.19-23.49,1.11-.35,2.25-.6,3.41-.74l29.69-3.6,49.67-6.02,67.97-9.4,36.69-5.07h.25c10.26-1.27,19.6,6.02,20.87,16.28.25,2,.17,4.03-.23,6Z"/>
+                <path d="M1303.88,494.04c-32.36,83.31-98.29,149.15-181.64,181.4-33.24,12.99-68.14,21.25-103.68,24.53v166.24c-.08,28.7-23.32,51.95-52.02,52.02h-35.87c-28.7-.08-51.95-23.32-52.02-52.02v-182.8l-11.47-4.04c-12.81-4.55-22.4-15.92-23.41-29.46,0-.91-.1-1.86-.1-2.76,0-1.95.16-3.89.46-5.81.32-2.05.93-4.04,1.82-5.9l4.63-9.75,28.16-61.21v-171.38c.07-28.7,23.32-51.95,52.02-52.02h35.88c28.7.07,51.95,23.32,52.02,52.02v159.86c123.23-15.36,210.89-145.1,153.39-279.63-17.29-40.64-49.31-73.24-89.63-91.26-114.62-50.72-226.31,4.27-267.48,97.55l25.22,27.65c1.86,1.99,3.25,4.37,4.06,6.97,3.12,9.85-2.34,20.37-12.19,23.49-1.11.35-2.25.6-3.41.74l-29.69,3.6-49.67,6.02-67.97,9.4-36.69,5.07h-.25c-10.26,1.29-19.61-5.98-20.9-16.24-.25-2.03-.18-4.08.23-6.08l20.63-100.63,14.59-87.52c1.71-10.19,11.35-17.08,21.55-15.37,4.18.7,8,2.8,10.84,5.96l15.98,17.84C771.49,69.66,875.85,15.68,987.12,15.77c233.03,0,411.8,232.61,316.76,478.27Z"/>
+              </g>
+            </pattern>
+          </defs>
+          <rect width="1200" height="800" fill="#6ae499"/>
+          <rect width="1200" height="800" fill="url(#op-motif-pastelgreen)"/>
+        </svg>
+        <div class="meta"><code>pattern-bg-pastelgreen.svg</code><span class="flag">FACT p.20 pairing</span></div>
+      </div>
+      <div class="pattern-bg-card">
+        <svg viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" role="img" aria-label="pattern background, White">
+          <defs>
+            <pattern id="op-motif-white" width="220" height="150" patternUnits="userSpaceOnUse">
+              <g transform="translate(33,25.97) scale(0.105)" fill="none" stroke="#6ae499"
+                 style="stroke-width: var(--op-pattern-bg-stroke-width); stroke-opacity: var(--op-pattern-bg-stroke-opacity);"
+                 vector-effect="non-scaling-stroke" stroke-linejoin="round" stroke-linecap="round">
+                <path d="M843.31,415.34l-20.63,100.63-14.59,87.52c-1.71,10.19-11.35,17.08-21.55,15.37-4.18-.7-8-2.8-10.84-5.96l-15.98-17.84c-64.22,90.86-168.58,144.85-279.84,144.78-233.03,0-411.8-232.61-316.76-478.27,32.36-83.31,98.29-149.15,181.64-181.4,81.64-31.55,161.81-32.78,232.43-11.9l22.63,7.97c12.81,4.55,22.4,15.92,23.41,29.46,0,.91.1,1.85.1,2.76,0,1.95-.16,3.89-.46,5.81-.32,2.05-.93,4.03-1.82,5.9l-4.51,9.77-30.95,67.29c-7.45,15.98-26.07,23.39-42.46,16.91-22.41-8.62-46.22-13.03-70.23-13.01-135.64,0-239.08,137.86-177.83,281.17,17.27,40.67,49.28,73.29,89.61,91.34,114.62,50.72,226.31-4.27,267.48-97.55l-25.31-27.74c-1.86-1.99-3.24-4.37-4.06-6.97-3.12-9.85,2.34-20.37,12.19-23.49,1.11-.35,2.25-.6,3.41-.74l29.69-3.6,49.67-6.02,67.97-9.4,36.69-5.07h.25c10.26-1.27,19.6,6.02,20.87,16.28.25,2,.17,4.03-.23,6Z"/>
+                <path d="M1303.88,494.04c-32.36,83.31-98.29,149.15-181.64,181.4-33.24,12.99-68.14,21.25-103.68,24.53v166.24c-.08,28.7-23.32,51.95-52.02,52.02h-35.87c-28.7-.08-51.95-23.32-52.02-52.02v-182.8l-11.47-4.04c-12.81-4.55-22.4-15.92-23.41-29.46,0-.91-.1-1.86-.1-2.76,0-1.95.16-3.89.46-5.81.32-2.05.93-4.04,1.82-5.9l4.63-9.75,28.16-61.21v-171.38c.07-28.7,23.32-51.95,52.02-52.02h35.88c28.7.07,51.95,23.32,52.02,52.02v159.86c123.23-15.36,210.89-145.1,153.39-279.63-17.29-40.64-49.31-73.24-89.63-91.26-114.62-50.72-226.31,4.27-267.48,97.55l25.22,27.65c1.86,1.99,3.25,4.37,4.06,6.97,3.12,9.85-2.34,20.37-12.19,23.49-1.11.35-2.25.6-3.41.74l-29.69,3.6-49.67,6.02-67.97,9.4-36.69,5.07h-.25c-10.26,1.29-19.61-5.98-20.9-16.24-.25-2.03-.18-4.08.23-6.08l20.63-100.63,14.59-87.52c1.71-10.19,11.35-17.08,21.55-15.37,4.18.7,8,2.8,10.84,5.96l15.98,17.84C771.49,69.66,875.85,15.68,987.12,15.77c233.03,0,411.8,232.61,316.76,478.27Z"/>
+              </g>
+            </pattern>
+          </defs>
+          <rect width="1200" height="800" fill="#ffffff"/>
+          <rect width="1200" height="800" fill="url(#op-motif-white)"/>
+        </svg>
+        <div class="meta"><code>pattern-bg-white.svg</code><span class="flag">DEFAULT — not PDF-specified</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="favicon">
+    <h2>Favicon Set <span class="tag tag--unverified">UNOFFICIAL DERIVATION</span></h2>
+    <p class="section-note">No favicon spec exists in the source guidelines. <code>icon-pastelgreen.svg</code> on a transparent background, per explicit brand-owner direction — see <code>design-system/favicon/README.md</code> before official use (it also notes a transparency-rendering caveat on some platforms).</p>
+    <div class="favicon-row">
+      <div class="favicon-item"><img src="./favicon/favicon-16.png" width="16" height="16" alt="16px"><div class="label">16px</div></div>
+      <div class="favicon-item"><img src="./favicon/favicon-32.png" width="32" height="32" alt="32px"><div class="label">32px</div></div>
+      <div class="favicon-item"><img src="./favicon/favicon-48.png" width="48" height="48" alt="48px"><div class="label">48px</div></div>
+      <div class="favicon-item"><img src="./favicon/apple-touch-icon-180.png" width="90" height="90" alt="apple touch icon"><div class="label">Apple 180px</div></div>
+      <div class="favicon-item"><img src="./favicon/android-chrome-192.png" width="90" height="90" alt="android chrome 192"><div class="label">Android 192px</div></div>
+    </div>
+  </section>
+
+</main>
+
+<footer>Optimizers Design System — generated from BRAND_IDENTITY.md and assets/manifest.json. Source PDF is not part of this repository.</footer>
+
+</body>
+</html>
